@@ -3,33 +3,42 @@ mod board;
 
 use wasm_bindgen::prelude::*;
 use board::Board;
-use js_sys::Array;
+use web_sys::{window, CanvasRenderingContext2d, HtmlCanvasElement, console};
+use crate::utils::log_vec;
 
 #[wasm_bindgen]
-pub fn life(iteration: i32) -> Result<JsValue, JsValue> {
-    let mut game_states: Vec<Vec<Vec<u8>>> = Vec::new();
+pub fn life(iteration: i32, board_size: usize) -> Result<(), JsValue> {
+    let window = window().expect("Cannot access global 'window'");
+    let document = window.document().expect("Cannot access document");
+    let canvas = document.get_element_by_id("canvas").expect("No canvas found");
 
-    let mut board = Board::new(20);
-    game_states.push(board.get_state());
+    let canvas = canvas.dyn_into::<HtmlCanvasElement>()?;
+    let context = canvas.get_context("2d")
+        .expect("No context").expect("No context")
+        .dyn_into::<CanvasRenderingContext2d>()?;
+
+    let cell_size = canvas.width() / board_size as u32;
+
+    let mut board = Board::new(board_size);
     for _ in 0..iteration {
         board.play_round();
-        game_states.push(board.get_state());
     }
 
-    // Create a JavaScript Array to store game states
-    let game_states_array = Array::new();
+    let latest_state = board.get_state();
+    // log_vec(&latest_state);
 
-    for state in game_states {
-        let state_array = Array::new();
-        for row in state {
-            let row_array = Array::new();
-            for cell in row {
-                row_array.push(&JsValue::from(cell));
-            }
-            state_array.push(&JsValue::from(row_array));
+    for (y, row) in latest_state.iter().enumerate() {
+        for (x, cell) in row.iter().enumerate() {
+            let color = match cell {
+                0 => "#44035c",
+                1 => "#ffffff",
+                _ => "#7684b9"
+            };
+
+            context.set_fill_style(&JsValue::from_str(color));
+            context.fill_rect((x as u32 * cell_size) as f64, (y as u32 * cell_size) as f64, cell_size as f64, cell_size as f64);
         }
-        game_states_array.push(&JsValue::from(state_array));
     }
 
-    Ok(JsValue::from(game_states_array))
+    Ok(())
 }

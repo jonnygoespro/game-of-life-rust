@@ -3,12 +3,36 @@
     <head>
         <meta charset="UTF-8">
         <title>Rust + WebAssembly Test</title>
+        <link rel="stylesheet" href="style.css">
     </head>
 
     <body>
-        <h1>Rust + WebAssembly Test</h1>
-        <button id="test-button">Click to Add Numbers</button>
-        <p id="result"></p>
+        <div id="canvas-container">
+            <canvas id="canvas"></canvas>
+        </div>
+
+        <form id="config-form">
+            <h1>Zombie Game of Life</h1>
+            <p>Zombie Game of Life is a dynamic twist on Conway’s classic, adding Zombies as a third state alongside Alive and Dead cells. This creates chaotic, unpredictable patterns as cells live, die, or decay.</p>
+            <label for="board-size">Board Size</label>
+            <input id="board-size" name="board-size" type="number" min="0" max="512" value="20">
+            <label for="speed">Speed</label>
+            <input id="speed" name="speed" type="number" min="1" max="2000" value="150">
+
+
+            <div id="iterations-container">
+                <div id="iterations-label">
+                    <label for="iterations">Number of Iterations</label>
+                    <div id="infinite-container">
+                        <input id="infinite" name="infinite" type="checkbox">
+                        <label for="infinite" id="infinite-label">Infinite</label>
+                    </div>
+                </div>
+                <input id="iterations" name="iterations" type="number" min="1" value="20">
+            </div>
+
+            <button id="start" type="submit">Start Game</button>
+        </form>
     </body>
     <script src="main.js" type="module"></script>
 </html>
