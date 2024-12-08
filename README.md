@@ -1,8 +1,8 @@
-# Monorepo: Game of Life
+# Game of Life
 
 This repository contains a monorepo setup for a Game of Life implementation, featuring:
 - **Rust**: The core logic implemented in Rust, compiled to WebAssembly.
-- **Frontend**: A JavaScript/TypeScript-based frontend to render and interact with the Game of Life.
+- **Frontend**: A plain JavaScript-based frontend to render and interact with the Game of Life.
 
 ## Folder Structure
 ```
@@ -63,4 +63,4 @@ This starts the frontend development server on `http://localhost:5173`.
 ## Notes
 - The Rust code is compiled into WebAssembly and dynamically imported by the frontend.
 - Any changes to the Rust code require rebuilding with `wasm-pack`.
-- The frontend leverages modern JavaScript tooling and expects Node.js v16+ for compatibility.
+- Because Rust runs the whole game for each js-iteration a seed is used for the random generation of the initial state.
