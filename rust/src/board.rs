@@ -1,6 +1,9 @@
 use std::cmp;
 use std::cmp::PartialEq;
 use wasm_bindgen::prelude::wasm_bindgen;
+use rand::Rng;
+use rand::SeedableRng;
+use rand_chacha::ChaCha8Rng;
 
 #[derive(Clone, Copy, PartialEq)]
 pub enum CellState {
@@ -16,14 +19,28 @@ pub struct Board {
 }
 
 impl Board {
-    pub fn new(size: usize) -> Self {
+    pub fn new(size: usize, random: bool, seed: String) -> Self {
         let mut cells = vec![vec![CellState::Dead; size]; size];
+
+        let mut hasher = std::collections::hash_map::DefaultHasher::new();
+        use std::hash::Hasher;
+        hasher.write(seed.as_bytes());
+        let hashed_seed = hasher.finish();
+        let mut rng = ChaCha8Rng::seed_from_u64(hashed_seed);
 
         for i in 0..size {
             for j in 0..size {
-                cells[i][j] = match (i + j) % 2 {
-                    0 => CellState::Alive,
-                    _ => CellState::Dead
+                if random {
+                    if rng.gen_bool(0.3) {
+                        cells[i][j] = CellState::Alive;
+                    } else {
+                        cells[i][j] = CellState::Dead;
+                    }
+                } else {
+                    cells[i][j] = match (i + j) % 2 {
+                        0 => CellState::Alive,
+                        _ => CellState::Dead
+                    }
                 }
             }
         }

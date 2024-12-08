@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zombie Game of Life Rules</title>
+    <link rel="stylesheet" href="rules-styles.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+<header id="header">
+    <div id="logo-container">
+        <img src="favicon.ico" alt="Zombie Game of Life Logo">
+        <h1>Zombie Game of Life</h1>
+    </div>
+    <nav>
+        <a href="index.html">Play Game</a>
+        <a href="rules.html">Rules</a>
+    </nav>
+</header>
+<main>
+    <section>
+        <h2>About the Project</h2>
+        <p>
+            This project was developed using Rust, WebAssembly (WASM), and JavaScript, combining the performance and efficiency of Rust with the interactivity of modern web technologies. It was created as part of my Master’s Degree in MultiMediaTechnology at FH Salzburg.
+        </p>
+    </section>
+    <section>
+        <h2>Overview</h2>
+        <p>
+            Zombie Game of Life is a variation of Conway's Game of Life with a third state: Zombies. Cells can be Alive, Dead, or Zombies, creating dynamic and unpredictable patterns on the grid.
+        </p>
+    </section>
+    <section>
+        <h2>Rules</h2>
+
+        <h3>Alive Cells:</h3>
+        <ul>
+            <li>Fewer than 2 live neighbors → becomes a Zombie (3).</li>
+            <li>2-3 live neighbors → stays Alive.</li>
+            <li>More than 3 live neighbors → becomes a Zombie (3).</li>
+        </ul>
+
+        <h3>Dead Cells:</h3>
+        <ul>
+            <li>Exactly 3 live neighbors → becomes Alive.</li>
+        </ul>
+
+        <h3>Zombie Cells:</h3>
+        <ul>
+            <li>Fewer or more than 3 live neighbors → decays (Zombie(x-1)).</li>
+            <li>Zombie(0) with not 3 live neighbors → becomes Dead.</li>
+        </ul>
+    </section>
+    <section>
+        <h2>Starting Board</h2>
+        <p>
+            The board begins with a 20x20 grid arranged in a chessboard pattern of Alive and Dead cells. Zombies emerge based on the rules as the game progresses.
+        </p>
+    </section>
+</main>
+</body>
+</html>

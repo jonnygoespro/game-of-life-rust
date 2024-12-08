@@ -1,0 +1,115 @@
+@font-face {
+    font-family: 'FiraSans';
+    src: url('fonts/FiraSans-Regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Lato';
+    src: url('fonts/Lato-Light.ttf') format('truetype');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'Lato';
+    src: url('fonts/Lato-Regular.ttf') format('truetype');
+    font-weight: 500;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 80px 1fr;
+}
+
+header {
+    width: 100vw;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 2rem;
+    border-bottom: 1px solid #ddd;
+
+    #logo-container {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        img {
+            width: 28px;
+            height: 28px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            font-family: 'FiraSans', sans-serif;
+        }
+    }
+
+    & nav {
+        display: flex;
+        gap: 1rem;
+
+        & a {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #000;
+            font-family: 'Lato', sans-serif;
+        }
+    }
+}
+
+main {
+    font-family: 'FiraSans', sans-serif;
+    width: 60%;
+    place-self: center;
+    padding-block: 2rem;
+
+    & p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+        font-weight: 300;
+        color: #000;
+        font-family: 'Lato', sans-serif;
+    }
+
+    & section {
+        margin-bottom: 2rem;
+    }
+
+    & h1 {
+        margin-bottom: 1rem;
+        font-size: 2.4rem;
+        font-weight: 900;
+    }
+
+    & h2 {
+        margin-bottom: 0.5rem;
+    }
+
+
+    & h3 {
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+    }
+
+    & ul {
+        margin-left: 1rem;
+        margin-bottom: 1rem;
+
+        & li {
+            font-size: 1rem;
+            line-height: 1.5rem;
+            font-weight: 300;
+            color: #000000;
+            font-family: 'Lato', sans-serif;
+        }
+    }
+}

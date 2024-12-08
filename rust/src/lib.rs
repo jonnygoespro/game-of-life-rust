@@ -7,7 +7,7 @@ use web_sys::{window, CanvasRenderingContext2d, HtmlCanvasElement, console};
 use crate::utils::log_vec;
 
 #[wasm_bindgen]
-pub fn life(iteration: i32, board_size: usize) -> Result<(), JsValue> {
+pub fn life(iteration: i32, board_size: usize, random: bool, seed: String) -> Result<(), JsValue> {
     let window = window().expect("Cannot access global 'window'");
     let document = window.document().expect("Cannot access document");
     let canvas = document.get_element_by_id("canvas").expect("No canvas found");
@@ -19,7 +19,7 @@ pub fn life(iteration: i32, board_size: usize) -> Result<(), JsValue> {
 
     let cell_size = canvas.width() / board_size as u32;
 
-    let mut board = Board::new(board_size);
+    let mut board = Board::new(board_size, random, seed);
     for _ in 0..iteration {
         board.play_round();
     }

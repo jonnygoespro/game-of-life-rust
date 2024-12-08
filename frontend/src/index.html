@@ -1,38 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Rust + WebAssembly Test</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <title>Zombie Game of Life</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
 
-    <body>
-        <div id="canvas-container">
-            <canvas id="canvas"></canvas>
-        </div>
+<body>
 
-        <form id="config-form">
-            <h1>Zombie Game of Life</h1>
-            <p>Zombie Game of Life is a dynamic twist on Conway’s classic, adding Zombies as a third state alongside Alive and Dead cells. This creates chaotic, unpredictable patterns as cells live, die, or decay.</p>
-            <label for="board-size">Board Size</label>
-            <input id="board-size" name="board-size" type="number" min="0" max="512" value="20">
-            <label for="speed">Speed</label>
-            <input id="speed" name="speed" type="number" min="1" max="2000" value="150">
+<header id="header">
+    <div id="logo-container">
+        <img src="favicon.ico" alt="Zombie Game of Life Logo">
+        <h1>Zombie Game of Life</h1>
+    </div>
+    <nav>
+        <a href="index.html">Play Game</a>
+        <a href="rules.html">Rules</a>
+    </nav>
+</header>
 
+<div id="canvas-container">
+    <canvas id="canvas"></canvas>
+</div>
 
-            <div id="iterations-container">
-                <div id="iterations-label">
-                    <label for="iterations">Number of Iterations</label>
-                    <div id="infinite-container">
-                        <input id="infinite" name="infinite" type="checkbox">
-                        <label for="infinite" id="infinite-label">Infinite</label>
-                    </div>
-                </div>
-                <input id="iterations" name="iterations" type="number" min="1" value="20">
+<form id="config-form">
+    <h1>Game Configuration</h1>
+    <p>Zombie Game of Life is a dynamic twist on Conway’s classic, adding Zombies as a third state alongside Alive and
+        Dead cells. This creates chaotic, unpredictable patterns as cells live, die, or decay.</p>
+    <label for="board-size">Board Size</label>
+    <input id="board-size" name="board-size" type="number" min="0" max="512" value="20">
+    <label for="speed">Speed</label>
+    <input id="speed" name="speed" type="number" min="1" max="2000" value="150">
+
+    <div id="iterations-container">
+        <div id="iterations-label">
+            <label for="iterations">Number of Iterations</label>
+            <div id="infinite-container">
+                <label for="infinite" id="infinite-label">Infinite</label>
+                <input id="infinite" name="infinite" type="checkbox">
             </div>
+        </div>
+        <input id="iterations" name="iterations" type="number" min="1" value="20">
+    </div>
 
-            <button id="start" type="submit">Start Game</button>
-        </form>
-    </body>
-    <script src="main.js" type="module"></script>
+    <div id="starting-board-container">
+        <label for="starting-board">Distribution</label>
+        <div id="select-wrapper">
+            <select name="starting-board" id="starting-board">
+                <option value="chess">Chess Board</option>
+                <option value="random">Random</option>
+            </select>
+        </div>
+    </div>
+
+    <button id="start" type="submit">Start Game</button>
+</form>
+</body>
+<script src="main.js" type="module"></script>
 </html>
