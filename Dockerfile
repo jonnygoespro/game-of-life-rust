@@ -1,35 +1,26 @@
-# Stage 1: Build
-FROM node:18 AS builder
+# Stage 1: Build Rust WebAssembly
+FROM rust:latest as rust-builder
 
-# Set the working directory inside the container
+RUN cargo install wasm-pack
+WORKDIR /app/rust
+COPY ./rust /app/rust
+RUN wasm-pack build --target web --out-dir ../frontend/rust-dependencies
+
+# Stage 2: Build Frontend
+FROM node:18 as frontend-builder
+
 WORKDIR /app/frontend
 
-# Copy only the required files for the build
-COPY ./frontend/package.json ./frontend/package-lock.json ./
-
-# Install dependencies
-RUN npm install
-
-# Copy the rest of the frontend directory
-COPY ./frontend .
-
-# Build the frontend application
+COPY ./frontend/package*.json ./
+RUN npm install vite
+RUN npm ci
+COPY ./frontend ./
+COPY --from=rust-builder /app/frontend/rust-dependencies /app/frontend/rust-dependencies
 RUN npm run build
 
-# Stage 2: Serve
-FROM node:18 AS server
+# Stage 3: Serve Application
+FROM nginx:alpine as production
 
-# Install Vite globally for serving
-RUN npm install -g vite
-
-# Set the working directory
-WORKDIR /app/frontend
-
-# Copy the built files from the builder stage
-COPY --from=builder /app/frontend/dist ./dist
-
-# Expose the port Vite will use
-EXPOSE 5173
-
-# Serve the built files
-CMD ["vite", "preview", "--port", "5173", "--host"]
+COPY --from=frontend-builder /app/frontend/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
