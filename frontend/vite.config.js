@@ -3,5 +3,11 @@ export default {
   build: {
     outDir: "../dist",
     emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        main: "./src/index.html",
+        rules: "./src/rules.html",
+      },
+    },
   },
 };
