@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx vite ./src/"
+    "start": "npx vite ./src/",
+    "build": "npx vite build"
   },
   "author": "",
   "license": "ISC",
