@@ -344,6 +344,55 @@ header {
     }
 }
 
+#restart-button {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: #44035c;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 999;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+#restart-button svg {
+    color: white;
+    transition: transform 0.3s ease;
+}
+
+#restart-button:hover {
+    background-color: #7684b9;
+    transform: scale(1.1);
+}
+
+#restart-button:hover svg {
+    transform: rotate(180deg);
+}
+
+#restart-button.hidden {
+    display: none;
+}
+
+/* Add this to your existing media query */
+@media screen and (max-width: 768px) {
+    #restart-button {
+        width: 40px;
+        height: 40px;
+        
+        & svg {
+            width: 20px;
+            height: 20px;
+        }
+    }
+}
+
 
 
 

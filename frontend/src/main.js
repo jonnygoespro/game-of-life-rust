@@ -9,6 +9,7 @@ const sizeInput = document.getElementById("board-size");
 const speedInput = document.getElementById("speed");
 const distributionInput = document.getElementById("starting-board");
 const canvasContainer = document.getElementById("canvas-container");
+const restartButton = document.getElementById("restart-button");
 
 document.addEventListener("DOMContentLoaded", async () => {
   await init();
@@ -20,10 +21,20 @@ infiniteCheckbox.addEventListener("change", () => {
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
+  startGame();
+});
+
+restartButton.addEventListener("click", () => {
+  stopGame();
+  showConfigForm();
+});
+
+function startGame() {
   configForm.style.display = "none";
   canvasContainer.style.display = "block";
   header.style.display = "none";
   document.body.style.display = "block";
+  restartButton.classList.remove("hidden");
 
   let boardSize = parseInt(sizeInput.value);
   let speed = parseInt(speedInput.value);
@@ -42,18 +53,29 @@ form.addEventListener("submit", (e) => {
 
   let iteration = 0;
 
-  const render = () => {
+  gameLoop = setInterval(() => {
     if (!infinite && iteration >= iterations) {
+      stopGame();
       return;
     }
 
     life(iteration, boardSize, distributionInput.value == "random", seed);
     iteration += 1;
+  }, speed);
+}
 
-    setTimeout(() => {
-      requestAnimationFrame(render);
-    }, speed);
-  };
+function stopGame() {
+  if (gameLoop) {
+    clearInterval(gameLoop);
+    gameLoop = null;
+  }
+}
 
-  render();
-});
+function showConfigForm() {
+  configForm.style.display = "block";
+  canvasContainer.style.display = "none";
+  header.style.display = "flex";
+  restartButton.classList.add("hidden");
+}
+
+let gameLoop = null;
