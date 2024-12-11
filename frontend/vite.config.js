@@ -7,6 +7,7 @@ export default {
       input: {
         main: "./src/index.html",
         rules: "./src/rules.html",
+        burger: "./src/burger-menu.js",
       },
     },
   },
