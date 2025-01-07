@@ -1,5 +1,7 @@
 # Game of Life
 
+Deployed Version: [Here](https://game-of-life.jonnygoespro.com/)
+
 This repository contains a monorepo setup for a Game of Life implementation, featuring:
 - **Rust**: The core logic implemented in Rust, compiled to WebAssembly.
 - **Frontend**: A plain JavaScript-based frontend to render and interact with the Game of Life.
